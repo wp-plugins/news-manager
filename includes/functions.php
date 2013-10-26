@@ -113,7 +113,8 @@ function nm_get_news_taxonomy($taxonomy = '', $args = array())
 		'display_as_dropdown' => FALSE,
 		'show_hierarchy' => TRUE,
 		'order_by' => 'name',
-		'order' => 'desc'
+		'order' => 'desc',
+		'hide_empty' => TRUE
 	);
 
 	$args = array_merge($defaults, $args);
@@ -246,7 +247,7 @@ function nm_display_news($args = array())
 	if(!empty($args['tags']))
 	{
 		$news_args['tax_query'][] = array(
-			'taxonomy' => 'news-tag',
+			'taxonomy' => nm_get_taxonomy_name('tag'),
 			'field' => 'id',
 			'terms' => $args['tags'],
 			'include_children' => FALSE,
@@ -257,7 +258,7 @@ function nm_display_news($args = array())
 	if(!empty($args['categories']))
 	{
 		$news_args['tax_query'][] = array(
-			'taxonomy' => 'news-category',
+			'taxonomy' => nm_get_taxonomy_name('category'),
 			'field' => 'id',
 			'terms' => $args['categories'],
 			'include_children' => FALSE,

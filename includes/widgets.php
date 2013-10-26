@@ -279,7 +279,7 @@ class News_Manager_Calendar_Widget extends WP_Widget
 
 			$html .= '
 			<div class="checkbox-list-tags checkbox-list"'.($tag === 'all' ? ' style="display: none;"' : '').'>
-				'.$this->display_taxonomy_checkbox_list('news-tag', 'tags_arr', $instance).'
+				'.$this->display_taxonomy_checkbox_list(nm_get_taxonomy_name('tag'), 'tags_arr', $instance).'
 			</div>
 		</div>';
 		}
@@ -301,7 +301,7 @@ class News_Manager_Calendar_Widget extends WP_Widget
 
 			$html .= '
 			<div class="checkbox-list-cats checkbox-list"'.($category === 'all' ? ' style="display: none;"' : '').'>
-				'.$this->display_taxonomy_checkbox_list('news-category', 'categories_arr', $instance).'
+				'.$this->display_taxonomy_checkbox_list(nm_get_taxonomy_name('category'), 'categories_arr', $instance).'
 			</div>
 		</div>';
 		}
@@ -466,7 +466,7 @@ class News_Manager_Calendar_Widget extends WP_Widget
 		if($options['tags'] !== 'all')
 		{
 			$news_args['tax_query'][] = array(
-				'taxonomy' => 'news-tag',
+				'taxonomy' => nm_get_taxonomy_name('tag'),
 				'field' => 'id',
 				'terms' => $options['tags_arr'],
 				'include_children' => FALSE,
@@ -477,7 +477,7 @@ class News_Manager_Calendar_Widget extends WP_Widget
 		if($options['categories'] !== 'all')
 		{
 			$news_args['tax_query'][] = array(
-				'taxonomy' => 'news-category',
+				'taxonomy' => nm_get_taxonomy_name('category'),
 				'field' => 'id',
 				'terms' => $options['categories_arr'],
 				'include_children' => FALSE,
@@ -545,6 +545,8 @@ class News_Manager_Calendar_Widget extends WP_Widget
 			$html .= '
 			</ul>';
 		}
+		elseif($parent === 0)
+			$html = __('No results were found.', 'news-manager');
 
 		return $html;
 	}
@@ -655,7 +657,7 @@ class News_Manager_List_Widget extends WP_Widget
 
 			$html .= '
 			<div class="checkbox-list-tags checkbox-list"'.($tag === 'all' ? ' style="display: none;"' : '').'>
-				'.$this->display_taxonomy_checkbox_list('news-tag', 'tags_arr', $instance).'
+				'.$this->display_taxonomy_checkbox_list(nm_get_taxonomy_name('tag'), 'tags_arr', $instance).'
 			</div>
 		</div>';
 		}
@@ -677,7 +679,7 @@ class News_Manager_List_Widget extends WP_Widget
 
 			$html .= '
 			<div class="checkbox-list-cats checkbox-list"'.($category === 'all' ? ' style="display: none;"' : '').'>
-				'.$this->display_taxonomy_checkbox_list('news-category', 'categories_arr', $instance).'
+				'.$this->display_taxonomy_checkbox_list(nm_get_taxonomy_name('category'), 'categories_arr', $instance).'
 			</div>
 		</div>';
 		}
@@ -818,6 +820,8 @@ class News_Manager_List_Widget extends WP_Widget
 			$html .= '
 			</ul>';
 		}
+		elseif($parent === 0)
+			$html = __('No results were found.', 'news-manager');
 
 		return $html;
 	}

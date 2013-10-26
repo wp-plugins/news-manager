@@ -3,7 +3,7 @@ Contributors: dfactory
 Donate link: http://www.dfactory.eu/
 Tags: news, news categories, news management, news management, news manager, news calendar, news archive, archive, archives, CMS, plugin, AJAX, widget, widgets, calendar
 Requires at least: 3.5
-Tested up to: 3.6.1
+Tested up to: 3.7
 Stable tag: 1.0.0
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
@@ -54,10 +54,16 @@ No questions yet.
 
 == Changelog ==
 
+= 1.0.1 =
+* New: Multisite support
+* Fix: Widgets not working if switched to native Tags or Categories
+* Tweak: General code cleanup
+
 = 1.0.0 =
 Initial release
 
 == Upgrade Notice ==
 
-= 1.0.0 =
-Initial release
+= 1.0.1 =
+* New: Multisite support
+* Fix: Widgets not working if switched to native Tags or Categories
