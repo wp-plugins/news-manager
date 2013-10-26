@@ -489,7 +489,7 @@ class News_Manager_Calendar_Widget extends WP_Widget
 			array_merge(
 				array(
 					'post_type' => 'news',
-					'numberposts' => -1,
+					'posts_per_page' => -1,
 					'suppress_filters' => FALSE,
 					'm' => str_replace('-', '', $date)
 				),
@@ -610,8 +610,13 @@ class News_Manager_List_Widget extends WP_Widget
 	{
 		$instance['title'] = apply_filters('widget_title', $instance['title'], $instance, $this->id_base);
 
+		//backward compatibility
+		$comp = $instance;
+		$comp['tags'] = ($instance['tags'] === 'selected' ? $instance['tags_arr'] : array());
+		$comp['categories'] = ($instance['categories'] === 'selected' ? $instance['categories_arr'] : array());
+
 		$html = $args['before_widget'].$args['before_title'].(!empty($instance['title']) ? $instance['title'] : $this->nm_defaults['title']).$args['after_title'];
-		$html .= nm_display_news($instance);
+		$html .= nm_display_news($comp);
 		$html .= $args['after_widget'];
 
 		echo $html;

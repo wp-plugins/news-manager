@@ -14,6 +14,6 @@
 	height: 16px;
 }
 .news-calendar-widget table.nav-days { margin-bottom:0; }
-.news-calendar-widget table.nav-months { table-layout: fixed; }
+.news-calendar-widget table.nav-months { table-layout: fixed; line-height: 24px; }
 .news-calendar-widget table.nav-months tbody td { background: none; }
 .news-calendar-widget .nav-months a:hover, .news-calendar-widget .nav-months a:active, .news-calendar-widget .nav-months a:focus { outline: 0; border: 0; background: none; }

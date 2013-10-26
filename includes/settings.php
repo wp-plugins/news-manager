@@ -227,7 +227,7 @@ class News_Manager_Settings
 				</form>
 			</div>
 			<div class="df-credits postbox-container">
-				<h3 class="metabox-title">'.__('News Manager', 'news-manager').' '.get_option('news_manager_version').'</h3>
+				<h3 class="metabox-title">'.__('News Manager', 'news-manager').' '.$this->defaults['version'].'</h3>
 				<div class="inner">
 					<h3>'.__('Need support?', 'news-manager').'</h3>
 					<p>'.__('If you are having problems with this plugin, please talk about them in the', 'news-manager').' <a href="http://www.dfactory.eu/support/?utm_source=news-manager-settings&utm_medium=link&utm_campaign=support" target="_blank" title="'.__('Support forum', 'news-manager').'">'.__('Support forum', 'news-manager').'</a></p>
@@ -686,8 +686,6 @@ class News_Manager_Settings
 		}
 		elseif(isset($_POST['reset_nm_capabilities']))
 		{
-			global $wp_roles;
-
 			foreach($wp_roles->roles as $role_name => $display_name)
 			{
 				$role = $wp_roles->get_role($role_name);

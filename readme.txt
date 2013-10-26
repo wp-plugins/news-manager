@@ -26,9 +26,8 @@ For more information, check out plugin page at [dFactory](http://www.dfactory.eu
 * News Tags
 * Custom permissions for News
 * 5 News widgets
-* Multiple custom functions
-* Advanced hooks for developers
-* Compatible with WPML
+* Multisite support
+* Compatible with WPML & Polylang
 * Compatible with SEO plugins
 * Customizable permalink structure
 * .pot file for translations included

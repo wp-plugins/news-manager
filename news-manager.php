@@ -91,8 +91,8 @@ class News_Manager
 
 	public function __construct()
 	{
-		register_activation_hook(__FILE__, array(&$this, 'activation'));
-		register_deactivation_hook(__FILE__, array(&$this, 'deactivation'));
+		register_activation_hook(__FILE__, array(&$this, 'multisite_activation'));
+		register_deactivation_hook(__FILE__, array(&$this, 'multisite_deactivation'));
 
 		//settings
 		$this->options = array_merge(
@@ -126,9 +126,37 @@ class News_Manager
 
 
 	/**
-	 * Execution of plugin activation function
+	 * Multisite activation
 	*/
-	public function activation()
+	public function multisite_activation($networkwide)
+	{
+		if(is_multisite() && $networkwide)
+		{
+			global $wpdb;
+
+			$activated_blogs = array();
+			$current_blog_id = $wpdb->blogid;
+			$blogs_ids = $wpdb->get_col($wpdb->prepare('SELECT blog_id FROM '.$wpdb->blogs, ''));
+
+			foreach($blogs_ids as $blog_id)
+			{
+				switch_to_blog($blog_id);
+				$this->activate_single();
+				$activated_blogs[] = (int)$blog_id;
+			}
+
+			switch_to_blog($current_blog_id);
+			update_site_option('news_manager_activated_blogs', $activated_blogs, array());
+		}
+		else
+			$this->activate_single();
+	}
+
+
+	/**
+	 * Activation
+	*/
+	public function activate_single()
 	{
 		global $wp_roles;
 
@@ -158,9 +186,41 @@ class News_Manager
 
 
 	/**
-	 * Execution of plugin deactivation function
+	 * Multisite deactivation
 	*/
-	public function deactivation()
+	public function multisite_deactivation($networkwide)
+	{
+		if(is_multisite() && $networkwide)
+		{
+			global $wpdb;
+
+			$current_blog_id = $wpdb->blogid;
+			$blogs_ids = $wpdb->get_col($wpdb->prepare('SELECT blog_id FROM '.$wpdb->blogs, ''));
+
+			if(($activated_blogs = get_site_option('news_manager_activated_blogs', FALSE, FALSE)) === FALSE)
+				$activated_blogs = array();
+
+			foreach($blogs_ids as $blog_id)
+			{
+				switch_to_blog($blog_id);
+				$this->deactivate_single(TRUE);
+
+				if(in_array((int)$blog_id, $activated_blogs, TRUE))
+					unset($activated_blogs[array_search($blog_id, $activated_blogs)]);
+			}
+
+			switch_to_blog($current_blog_id);
+			update_site_option('news_manager_activated_blogs', $activated_blogs);
+		}
+		else
+			$this->deactivate_single();
+	}
+
+
+	/**
+	 * Deactivation
+	*/
+	public function deactivate_single($multi = FALSE)
 	{
 		global $wp_roles;
 
@@ -175,8 +235,15 @@ class News_Manager
 			}
 		}
 
-		//delete default options
-		if($this->options['general']['deactivation_delete'] === TRUE)
+		if($multi === TRUE)
+		{
+			$options = get_option('news_manager_general');
+			$check = $options['deactivation_delete'];
+		}
+		else
+			$check = $this->options['general']['deactivation_delete'];
+
+		if($check === TRUE)
 		{
 			$settings = new News_Manager_Settings();
 			$settings->update_menu();

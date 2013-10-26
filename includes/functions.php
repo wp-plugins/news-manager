@@ -170,6 +170,7 @@ function nm_display_news_archives($args = array())
 		array(
 			'post_type' => 'news',
 			'suppress_filters' => FALSE,
+			'posts_per_page' => ($args['limit'] === 0 ? -1 : $args['limit'])
 		)
 	);
 
@@ -224,9 +225,7 @@ function nm_display_news($args = array())
 	$defaults = array(
 		'number_of_news' => 5,
 		'tags' => 'all',
-		'tags_arr' => array(),
 		'categories' => 'all',
-		'categories_arr' => array(),
 		'order_by' => 'publish',
 		'order' => 'ASC',
 		'show_news_thumbnail' => TRUE,
@@ -244,23 +243,23 @@ function nm_display_news($args = array())
 		'order' => $args['order']
 	);
 
-	if($args['tags'] !== 'all')
+	if(!empty($args['tags']))
 	{
 		$news_args['tax_query'][] = array(
 			'taxonomy' => 'news-tag',
 			'field' => 'id',
-			'terms' => $args['tags_arr'],
+			'terms' => $args['tags'],
 			'include_children' => FALSE,
 			'operator' => 'IN'
 		);
 	}
 
-	if($args['categories'] !== 'all')
+	if(!empty($args['categories']))
 	{
 		$news_args['tax_query'][] = array(
 			'taxonomy' => 'news-category',
 			'field' => 'id',
-			'terms' => $args['categories_arr'],
+			'terms' => $args['categories'],
 			'include_children' => FALSE,
 			'operator' => 'IN'
 		);
