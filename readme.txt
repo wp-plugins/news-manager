@@ -4,7 +4,7 @@ Donate link: http://www.dfactory.eu/
 Tags: news, news categories, news management, news management, news manager, news calendar, news archive, archive, archives, CMS, plugin, AJAX, widget, widgets, calendar
 Requires at least: 3.5
 Tested up to: 3.7
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
