@@ -231,7 +231,7 @@ class News_Manager_Calendar_Widget extends WP_Widget
 				'news-manager-front-widgets-calendar',
 				'nmArgs',
 				array(
-					'ajaxurl' => admin_url('admin-ajax.php').(defined('ICL_LANGUAGE_CODE') ? '?lang='.ICL_LANGUAGE_CODE : ''),
+					'ajaxurl' => admin_url('admin-ajax.php'),
 					'nonce' => wp_create_nonce('news-manager-widget-calendar')
 				)
 			);
@@ -380,9 +380,14 @@ class News_Manager_Calendar_Widget extends WP_Widget
 		$next_month = ($month + 1) % 12;
 		$next_month_pad = str_pad($next_month + 1, 2, '0', STR_PAD_LEFT);
 		$first_day = (($first = date('w', strtotime(date($date[0].'-'.$date[1].'-01')))) === '0' ? 7 : $first);
+		$rel = $widget_id;
+
+		//Polylang and WPML compatibility
+		if(defined('ICL_LANGUAGE_CODE'))
+			$rel .= '|'.ICL_LANGUAGE_CODE;
 
 		$html = '
-		<div id="news-calendar-'.$widget_id.'" class="news-calendar-widget widget_calendar" rel="'.$widget_id.'" '.($ajax === TRUE ? 'style="display: none;"' : '').'>
+		<div id="news-calendar-'.$widget_id.'" class="news-calendar-widget widget_calendar" rel="'.$rel.'" '.($ajax === TRUE ? 'style="display: none;"' : '').'>
 			<caption>'.$wp_locale->get_month($date[1]).' '.$date[0].'</caption>
 			<table class="nav-days">
 				<thead>
@@ -461,7 +466,14 @@ class News_Manager_Calendar_Widget extends WP_Widget
 	*/
 	private function get_news_days($date, $options)
 	{
-		$days = $news_args = array();
+		$days = array();
+
+		$news_args = array(
+			'post_type' => 'news',
+			'posts_per_page' => -1,
+			'suppress_filters' => FALSE,
+			'm' => str_replace('-', '', $date)
+		);
 
 		if($options['tags'] !== 'all')
 		{
@@ -485,21 +497,15 @@ class News_Manager_Calendar_Widget extends WP_Widget
 			);
 		}
 
-		$news = get_posts(
-			array_merge(
-				array(
-					'post_type' => 'news',
-					'posts_per_page' => -1,
-					'suppress_filters' => FALSE,
-					'm' => str_replace('-', '', $date)
-				),
-				$news_args
-			)
-		);
+		//Polylang and WPML compatibility
+		if(defined('ICL_LANGUAGE_CODE'))
+			$news_args['lang'] = ICL_LANGUAGE_CODE;
 
-		foreach($news as $single_news)
+		$news = get_posts($news_args);
+
+		if(!empty($news))
 		{
-			if(!empty($news))
+			foreach($news as $single_news)
 			{
 				$s_datetime = explode(' ', $single_news->post_date);
 				$s_date = explode('-', $s_datetime[0]);

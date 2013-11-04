@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: News Manager\n"
 "POT-Creation-Date: 2013-10-08 22:58+0100\n"
-"PO-Revision-Date: 2013-10-08 23:28+0100\n"
+"PO-Revision-Date: 2013-10-30 12:55+0100\n"
 "Last-Translator: Bartosz Arendt <info@digitalfactory.pl>\n"
 "Language-Team: dFactory <info@dfactory.pl>\n"
 "Language: English\n"
@@ -379,39 +379,39 @@ msgstr "Prefix dla kategorii"
 
 #: ../includes/settings.php:138
 msgid "Publish News"
-msgstr "Publikowanie wydarzeń"
+msgstr "Publikowanie aktualności"
 
 #: ../includes/settings.php:140
 msgid "Edit Others News"
-msgstr "Edytowanie wydarzeń innych"
+msgstr "Edytowanie aktualności innych"
 
 #: ../includes/settings.php:141
 msgid "Edit Published News"
-msgstr "Edytowanie opublikowanych wydarzeń"
+msgstr "Edytowanie opublikowanych aktualności"
 
 #: ../includes/settings.php:142
 msgid "Delete Published News"
-msgstr "Usuwanie opublikowanych wydarzeń"
+msgstr "Usuwanie opublikowanych aktualności"
 
 #: ../includes/settings.php:143
 msgid "Delete News"
-msgstr "Usuwanie wydarzeń"
+msgstr "Usuwanie aktualności"
 
 #: ../includes/settings.php:144
 msgid "Delete Others News"
-msgstr "Usuwanie wydarzeń innych"
+msgstr "Usuwanie aktualności innych"
 
 #: ../includes/settings.php:145
 msgid "Read Private News"
-msgstr "Czytanie prywatnych wydarzeń"
+msgstr "Czytanie prywatnych aktualności"
 
 #: ../includes/settings.php:146 ../includes/settings.php:153
 msgid "Manage News Categories"
-msgstr "Zarządzenie kategoriami wydarzeń"
+msgstr "Zarządzenie kategoriami aktualności"
 
 #: ../includes/settings.php:150
 msgid "Manage News Tags"
-msgstr "Zarządzanie tagami wydarzeń"
+msgstr "Zarządzanie tagami aktualności"
 
 #: ../includes/settings.php:171 ../includes/settings.php:184
 msgid "Settings"
@@ -520,7 +520,7 @@ msgstr "Ustawienia bezpośrednich odnośników"
 
 #: ../includes/settings.php:277
 msgid "Single News prefix"
-msgstr "Prefix dla pojedynczych wydarzeń"
+msgstr "Prefix dla pojedynczych aktualności"
 
 #: ../includes/settings.php:303
 msgid "Select which features would you like to enable for your news."

@@ -54,6 +54,9 @@ No questions yet.
 
 == Changelog ==
 
+= 1.0.2 =
+* Fix: Ajax News calendar not working properly with Polylang
+
 = 1.0.1 =
 * New: Multisite support
 * Fix: Widgets not working if switched to native Tags or Categories
@@ -64,6 +67,5 @@ Initial release
 
 == Upgrade Notice ==
 
-= 1.0.1 =
-* New: Multisite support
-* Fix: Widgets not working if switched to native Tags or Categories
+= 1.0.2 =
+* Fix: Ajax News calendar not working properly with Polylang

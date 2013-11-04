@@ -1,4 +1,5 @@
 /* News Calendar Widget */
+.news-calendar-widget table { width: 100%; line-height: 1.84615; }
 .news-calendar-widget table .prev-month { text-align:left; }
 .news-calendar-widget table .next-month { text-align:right; }
 .news-calendar-widget td.ajax-spinner div {

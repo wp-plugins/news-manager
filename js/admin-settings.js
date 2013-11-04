@@ -3,41 +3,41 @@ jQuery(document).ready(function($) {
 	$('.wplikebtns').buttonset();
 
 	$(document).on('change', '#nm-general-news-nav-menu-yes, #nm-general-news-nav-menu-no', function() {
-		if($('#nm-general-news-nav-menu-yes:checked').val() === 'yes') {
+		if($(this).val() === 'yes') {
 			$('#nm_news_nav_menu_opt').fadeIn(300);
-		} else if($('#nm-general-news-nav-menu-no:checked').val() === 'no') {
+		} else {
 			$('#nm_news_nav_menu_opt').fadeOut(300);
 		}
 	});
 
 	$(document).on('change', '#nm-general-use-tags-yes, #nm-general-use-tags-no', function() {
-		if($('#nm-general-use-tags-yes:checked').val() === 'yes') {
+		if($(this).val() === 'yes') {
 			$('#nm_general_use_tags_opt').fadeIn(300);
-		} else if($('#nm-general-use-tags-no:checked').val() === 'no') {
+		} else {
 			$('#nm_general_use_tags_opt').fadeOut(300);
 		}
 	});
 
 	$(document).on('change', '#nm-general-use-categories-yes, #nm-general-use-categories-no', function() {
-		if($('#nm-general-use-categories-yes:checked').val() === 'yes') {
+		if($(this).val() === 'yes') {
 			$('#nm_general_use_categories_opt').fadeIn(300);
-		} else if($('#nm-general-use-categories-no:checked').val() === 'no') {
+		} else {
 			$('#nm_general_use_categories_opt').fadeOut(300);
 		}
 	});
 
 	$(document).on('change', '#nm-permalinks-single-news-prefix-yes, #nm-permalinks-single-news-prefix-no', function() {
-		if($('#nm-permalinks-single-news-prefix-yes:checked').val() === 'yes') {
+		if($(this).val() === 'yes') {
 			$('#nm_permalinks_single_news_prefix_opt').fadeIn(300);
-		} else if($('#nm-permalinks-single-news-prefix-no:checked').val() === 'no') {
+		} else {
 			$('#nm_permalinks_single_news_prefix_opt').fadeOut(300);
 		}
 	});
 
 	$(document).on('change', '#nm-permalinks-single-news-prefix-type-category, #nm-permalinks-single-news-prefix-type-tag', function() {
-		if($('#nm-permalinks-single-news-prefix-type-category:checked').val() === 'category') {
+		if($(this).val() === 'category') {
 			$('#nm_permalinks_single_news_prefix_code').html(nmArgs.categoriesRewriteURL);
-		} else if($('#nm-permalinks-single-news-prefix-type-tag:checked').val() === 'tag') {
+		} else {
 			$('#nm_permalinks_single_news_prefix_code').html(nmArgs.tagsRewriteURL);
 		}
 	});
