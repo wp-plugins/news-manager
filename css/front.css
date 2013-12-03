@@ -1,0 +1,20 @@
+/* News Calendar Widget */
+.news-calendar-widget table { width: 100%; line-height: 1.84615; }
+.news-calendar-widget table .prev-month { text-align:left; }
+.news-calendar-widget table .next-month { text-align:right; }
+.news-calendar-widget td.ajax-spinner div {
+	display: none;
+	position: relative;
+	background: url('../../../../wp-admin/images/wpspin_light.gif') no-repeat;
+	background-size: 16px 16px;
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+	margin: 0;
+	padding: 0;
+	width: 16px;
+	height: 16px;
+}
+.news-calendar-widget table.nav-days { margin-bottom:0; }
+.news-calendar-widget table.nav-months { table-layout: fixed; line-height: 24px; }
+.news-calendar-widget table.nav-months tbody td { background: none; }
+.news-calendar-widget .nav-months a:hover, .news-calendar-widget .nav-months a:active, .news-calendar-widget .nav-months a:focus { outline: 0; border: 0; background: none; }
