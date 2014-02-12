@@ -3,8 +3,8 @@ Contributors: dfactory
 Donate link: http://www.dfactory.eu/
 Tags: news, news categories, news management, news management, news manager, news calendar, news archive, archive, archives, CMS, plugin, AJAX, widget, widgets, calendar
 Requires at least: 3.5
-Tested up to: 3.7.1
-Stable tag: 1.0.3
+Tested up to: 3.8.1
+Stable tag: 1.0.4
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
@@ -36,6 +36,7 @@ For more information, check out plugin page at [dFactory](http://www.dfactory.eu
 
 * Polish - by Bartosz Arendt
 * Spanish - by [Maria Ramos](http://www.webhostinghub.com)
+* Swedish - by [Daniel Storgards](http://www.danielstorgards.com)
 
 == Installation ==
 
@@ -55,6 +56,10 @@ No questions yet.
 
 == Changelog ==
 
+= 1.0.4 =
+* New: Swedish translation, thanks to [Daniel Storgards](http://www.danielstorgards.com)
+* Tweak: UI improvements for WP 3.8
+
 = 1.0.3 =
 * New: Spanish translation, thanks to [Maria Ramos](http://www.webhostinghub.com)
 * Tweak: Added current day class to Ajax News Calendar
@@ -72,6 +77,6 @@ Initial release
 
 == Upgrade Notice ==
 
-= 1.0.3 =
-* New: Spanish translation, thanks to [Maria Ramos](http://webhostinghub.com)
-* Tweak: Added current day class to Ajax News Calendar
+= 1.0.4 =
+* New: Swedish translation, thanks to [Daniel Storgards](http://www.danielstorgards.com)
+* Tweak: UI improvements for WP 3.8

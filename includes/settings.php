@@ -205,7 +205,24 @@ class News_Manager_Settings
 
 		echo '
 			</h2>
-			<div class="metabox-holder postbox-container news-manager-settings">
+			<div class="news-manager-settings">
+			
+				<div class="df-credits">
+					<h3 class="hndle">'.__('News Manager', 'news-manager').' '.$this->defaults['version'].'</h3>
+					<div class="inside">
+						<h4 class="inner">'.__('Need support?', 'news-manager').'</h4>
+						<p class="inner">'.__('If you are having problems with this plugin, please talk about them in the', 'news-manager').' <a href="http://www.dfactory.eu/support/?utm_source=news-manager-settings&utm_medium=link&utm_campaign=support" target="_blank" title="'.__('Support forum', 'news-manager').'">'.__('Support forum', 'news-manager').'</a></p>
+						<hr />
+						<h4 class="inner">'.__('Do you like this plugin?', 'news-manager').'</h4>
+						<p class="inner"><a href="http://wordpress.org/support/view/plugin-reviews/news-manager" target="_blank" title="'.__('Rate it 5', 'news-manager').'">'.__('Rate it 5', 'news-manager').'</a> '.__('on WordPress.org', 'news-manager').'<br />'.
+						__('Blog about it & link to the', 'news-manager').' <a href="http://www.dfactory.eu/plugins/news-manager/?utm_source=news-manager-settings&utm_medium=link&utm_campaign=blog-about" target="_blank" title="'.__('plugin page', 'news-manager').'">'.__('plugin page', 'news-manager').'</a><br />'.
+						__('Check out our other', 'news-manager').' <a href="http://www.dfactory.eu/plugins/?utm_source=news-manager-settings&utm_medium=link&utm_campaign=other-plugins" target="_blank" title="'.__('WordPress plugins', 'news-manager').'">'.__('WordPress plugins', 'news-manager').'</a>
+						</p>            
+						<hr />
+						<p class="df-link inner">'.__('Created by', 'news-manager').' <a href="http://www.dfactory.eu/?utm_source=news-manager-settings&utm_medium=link&utm_campaign=created-by" target="_blank" title="dFactory - Quality plugins for WordPress"><img src="'.NEWS_MANAGER_URL.'/images/logo-dfactory.png'.'" title="dFactory - Quality plugins for WordPress" alt="dFactory - Quality plugins for WordPress" /></a></p>
+					</div>
+				</div>
+			
 				<form action="options.php" method="post">';
 
 		wp_nonce_field('update-options');
@@ -225,21 +242,6 @@ class News_Manager_Settings
 		echo '
 					</p>
 				</form>
-			</div>
-			<div class="df-credits postbox-container">
-				<h3 class="metabox-title">'.__('News Manager', 'news-manager').' '.$this->defaults['version'].'</h3>
-				<div class="inner">
-					<h3>'.__('Need support?', 'news-manager').'</h3>
-					<p>'.__('If you are having problems with this plugin, please talk about them in the', 'news-manager').' <a href="http://www.dfactory.eu/support/?utm_source=news-manager-settings&utm_medium=link&utm_campaign=support" target="_blank" title="'.__('Support forum', 'news-manager').'">'.__('Support forum', 'news-manager').'</a></p>
-					<hr />
-					<h3>'.__('Do you like this plugin?', 'news-manager').'</h3>
-					<p><a href="http://wordpress.org/support/view/plugin-reviews/news-manager" target="_blank" title="'.__('Rate it 5', 'news-manager').'">'.__('Rate it 5', 'news-manager').'</a> '.__('on WordPress.org', 'news-manager').'<br />'.
-					__('Blog about it & link to the', 'news-manager').' <a href="http://www.dfactory.eu/plugins/news-manager/?utm_source=news-manager-settings&utm_medium=link&utm_campaign=blog-about" target="_blank" title="'.__('plugin page', 'news-manager').'">'.__('plugin page', 'news-manager').'</a><br />'.
-					__('Check out our other', 'news-manager').' <a href="http://www.dfactory.eu/plugins/?utm_source=news-manager-settings&utm_medium=link&utm_campaign=other-plugins" target="_blank" title="'.__('WordPress plugins', 'news-manager').'">'.__('WordPress plugins', 'news-manager').'</a>
-					</p>            
-					<hr />
-					<p class="df-link">'.__('Created by', 'news-manager').' <a href="http://www.dfactory.eu/?utm_source=news-manager-settings&utm_medium=link&utm_campaign=created-by" target="_blank" title="dFactory - Quality plugins for WordPress"><img src="'.NEWS_MANAGER_URL.'/images/logo-dfactory.png'.'" title="dFactory - Quality plugins for WordPress" alt="dFactory - Quality plugins for WordPress" /></a></p>
-				</div>
 			</div>
 			<div class="clear"></div>
 		</div>';
