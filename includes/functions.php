@@ -54,7 +54,7 @@ function nm_get_news_date_link($year = 0, $month = 0, $day = 0)
 	else
 		$archive = add_query_arg('news_ondate', implode('-', $link_date), $archive);
 
-	return $archive;
+	return apply_filters('nm_news_date_link', $archive);
 }
 
 
@@ -217,7 +217,7 @@ function nm_display_news_archives($args = array())
 
 	$html .= sprintf('</%s>', $elem_m);
 
-	return $html;
+	return apply_filters('nm_display_news_archives', $html, $args);
 }
 
 
@@ -314,12 +314,12 @@ function nm_display_news($args = array())
 
 		$html .= '
 		</ul>';
-
-		return $html;
 	}
 	else
-		return $args['no_news_message'];
+		$html = $args['no_news_message'];
 
 	wp_reset_postdata();
+
+	return apply_filters('nm_display_news', $html, $args);
 }
 ?>

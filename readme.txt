@@ -4,7 +4,7 @@ Donate link: http://www.dfactory.eu/
 Tags: news, news categories, news management, news management, news manager, news calendar, news archive, archive, archives, CMS, plugin, AJAX, widget, widgets, calendar
 Requires at least: 3.5
 Tested up to: 3.8.1
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
@@ -56,6 +56,9 @@ No questions yet.
 
 == Changelog ==
 
+= 1.0.5 =
+* Fix: News Categories Widget not displaying categories
+
 = 1.0.4 =
 * New: Swedish translation, thanks to [Daniel Storgards](http://www.danielstorgards.com)
 * Tweak: UI improvements for WP 3.8
@@ -77,6 +80,5 @@ Initial release
 
 == Upgrade Notice ==
 
-= 1.0.4 =
-* New: Swedish translation, thanks to [Daniel Storgards](http://www.danielstorgards.com)
-* Tweak: UI improvements for WP 3.8
+= 1.0.5 =
+* Fix: News Categories Widget not displaying categories

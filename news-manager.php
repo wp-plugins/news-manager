@@ -2,7 +2,7 @@
 /*
 Plugin Name: News Manager
 Description: Every CMS site needs a news section. News Manager allows you add, manage and display news, date archives, AJAX Calendar, Categories, Tags and more.
-Version: 1.0.4
+Version: 1.0.5
 Author: dFactory
 Author URI: http://www.dfactory.eu/
 Plugin URI: http://www.dfactory.eu/plugins/news-manager/
@@ -84,7 +84,7 @@ class News_Manager
 			'single_news_prefix' => FALSE,
 			'single_news_prefix_type' => 'category'
 		),
-		'version' => '1.0.4'
+		'version' => '1.0.5'
 	);
 	private $transient_id = '';
 
@@ -558,6 +558,15 @@ class News_Manager
 			elseif($this->options['general']['use_categories'] === TRUE && $this->options['general']['builtin_categories'] === FALSE && $this->options['permalinks']['single_news_prefix_type'] === 'category')
 				$prefix = '/%news-category%';
 		}
+		
+		// Menu icon
+		global $wp_version;
+		
+		$menu_icon = NEWS_MANAGER_URL.'/images/icon-news-16.png';
+		if ($wp_version >= 3.8)
+		{
+			$menu_icon = 'dashicons-format-aside';
+		}
 
 		$args_news = array(
 			'labels' => $labels_news,
@@ -570,7 +579,7 @@ class News_Manager
 			'show_in_admin_bar' => TRUE,
 			'show_in_nav_menus' => TRUE,
 			'menu_position' => 5,
-			'menu_icon' => NEWS_MANAGER_URL.'/images/icon-news-16.png',
+			'menu_icon' => $menu_icon,
 			'capability_type' => 'news',
 			'capabilities' => array(
 				'publish_posts' => 'publish_news',
@@ -724,14 +733,19 @@ class News_Manager
 	*/
 	public function edit_screen_icon()
 	{
-		global $post;
-
-		if(get_post_type($post) === 'news' || (isset($_GET['post_type']) && $_GET['post_type'] === 'news'))
+		// Screen icon
+		global $wp_version;
+		if ($wp_version < 3.8)
 		{
-			echo '
-			<style>
-				#icon-edit { background: transparent url(\''.NEWS_MANAGER_URL.'/images/icon-news-32.png\') no-repeat; }
-			</style>';
+			global $post;
+
+			if(get_post_type($post) === 'news' || (isset($_GET['post_type']) && $_GET['post_type'] === 'news'))
+			{
+				echo '
+				<style>
+					#icon-edit { background: transparent url(\''.NEWS_MANAGER_URL.'/images/icon-news-32.png\') no-repeat; }
+				</style>';
+			}
 		}
 	}
 
