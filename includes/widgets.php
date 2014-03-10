@@ -160,6 +160,7 @@ class News_Manager_Calendar_Widget extends WP_Widget
 	private $nm_options = array();
 	private $nm_defaults = array();
 	private $nm_taxonomies = array();
+	private $nm_css_styles = array();
 	private $nm_included_widgets = 0;
 
 
@@ -184,12 +185,20 @@ class News_Manager_Calendar_Widget extends WP_Widget
 			'title' => __('News Calendar', 'news-manager'),
 			'highlight_weekends' => TRUE,
 			'categories' => 'all',
-			'tags' => 'all'
+			'tags' => 'all',
+			'css_style' => 'basic'
 		);
 
 		$this->nm_taxonomies = array(
 			'all' => __('all', 'news-manager'),
 			'selected' => __('selected', 'news-manager')
+		);
+
+		$this->nm_css_styles = array(
+			'basic' => __('basic', 'news-manager'),
+			'dark' => __('dark', 'news-manager'),
+			'light' => __('light', 'news-manager'),
+			'flat' => __('flat', 'news-manager')
 		);
 	}
 
@@ -260,6 +269,19 @@ class News_Manager_Calendar_Widget extends WP_Widget
 		</p>
 		<p>
 			<input id="'.$this->get_field_id('highlight_weekends').'" type="checkbox" name="'.$this->get_field_name('highlight_weekends').'" value="" '.checked(TRUE, (isset($instance['highlight_weekends']) ? $instance['highlight_weekends'] : $this->nm_defaults['highlight_weekends']), FALSE).' /> <label for="'.$this->get_field_id('highlight_weekends').'">'.__('Highlight weekends', 'news-manager').'</label>
+		</p>
+		<p>
+			<label>'.__('CSS Style', 'news-manager').':</label>
+			<select name="'.$this->get_field_name('css_style').'">';
+
+		foreach($this->nm_css_styles as $style => $trans)
+		{
+			$html .= '
+				<option value="'.esc_attr($style).'" '.selected($style, (isset($instance['css_style']) ? $instance['css_style'] : $this->nm_defaults['css_style']), FALSE).'>'.$trans.'</option>';
+		}
+
+		$html .= '
+			</select>
 		</p>';
 
 		if($this->nm_options['general']['use_tags'] === TRUE)
@@ -325,6 +347,9 @@ class News_Manager_Calendar_Widget extends WP_Widget
 		$old_instance['tags'] = (isset($new_instance['tags']) && in_array($new_instance['tags'], array_keys($this->nm_taxonomies), TRUE) ? $new_instance['tags'] : $this->nm_defaults['tags']);
 		$old_instance['categories'] = (isset($new_instance['categories']) && in_array($new_instance['categories'], array_keys($this->nm_taxonomies), TRUE) ? $new_instance['categories'] : $this->nm_defaults['categories']);
 
+		//css style
+		$old_instance['css_style'] = (isset($new_instance['css_style']) && in_array($new_instance['css_style'], array_keys($this->nm_css_styles), TRUE) ? $new_instance['css_style'] : $this->nm_defaults['css_style']);
+
 		//tags
 		if($old_instance['tags'] === 'selected')
 		{
@@ -380,14 +405,14 @@ class News_Manager_Calendar_Widget extends WP_Widget
 		$next_month = ($month + 1) % 12;
 		$next_month_pad = str_pad($next_month + 1, 2, '0', STR_PAD_LEFT);
 		$first_day = (($first = date('w', strtotime(date($date[0].'-'.$date[1].'-01')))) === '0' ? 7 : $first);
-		$rel = $widget_id;
+		$rel = $widget_id.'|';
 
 		//Polylang and WPML compatibility
 		if(defined('ICL_LANGUAGE_CODE'))
-			$rel .= '|'.ICL_LANGUAGE_CODE;
+			$rel .= ICL_LANGUAGE_CODE;
 
 		$html = '
-		<div id="news-calendar-'.$widget_id.'" class="news-calendar-widget widget_calendar" rel="'.$rel.'" '.($ajax === TRUE ? 'style="display: none;"' : '').'>
+		<div id="news-calendar-'.$widget_id.'" class="news-calendar-widget widget_calendar'.(isset($options['css_style']) && $options['css_style'] !== 'basic' ? ' '.$options['css_style'] : '').'" rel="'.$rel.'" '.($ajax === TRUE ? 'style="display: none;"' : '').'>
 			<span class="active-month">'.$wp_locale->get_month($date[1]).' '.$date[0].'</span>
 			<table class="nav-days">
 				<thead>
@@ -420,7 +445,7 @@ class News_Manager_Calendar_Widget extends WP_Widget
 				if($real_day === TRUE && in_array($day, $news))
 					$td_class[] = 'active';
 
-				if($day === $now['day'])
+				if($day === $now['day'] && ($month + 1 === $now['month']) && (int)$date[0] === $now['year'])
 					$td_class[] = 'today';
 
 				if($real_day === FALSE)

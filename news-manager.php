@@ -2,7 +2,7 @@
 /*
 Plugin Name: News Manager
 Description: Every CMS site needs a news section. News Manager allows you add, manage and display news, date archives, AJAX Calendar, Categories, Tags and more.
-Version: 1.0.5
+Version: 1.0.6
 Author: dFactory
 Author URI: http://www.dfactory.eu/
 Plugin URI: http://www.dfactory.eu/plugins/news-manager/
@@ -84,7 +84,7 @@ class News_Manager
 			'single_news_prefix' => FALSE,
 			'single_news_prefix_type' => 'category'
 		),
-		'version' => '1.0.5'
+		'version' => '1.0.6'
 	);
 	private $transient_id = '';
 
