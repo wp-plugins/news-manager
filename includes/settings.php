@@ -601,7 +601,7 @@ class News_Manager_Settings
 	{
 		global $wp_roles;
 
-		$built_in_roles = array('administrator', 'author', 'contributor', 'editor', 'subscriber');
+		$editable_roles = get_editable_roles();
 
 		$html = '
 		<table class="widefat fixed posts">
@@ -609,7 +609,7 @@ class News_Manager_Settings
 				<tr>
 					<th>'.__('Role', 'news-manager').'</th>';
 
-		foreach($built_in_roles as $role_name)
+		foreach($editable_roles as $role_name => $role_info)
 		{
 			$html .= '<th>'.esc_html((isset($wp_roles->role_names[$role_name]) ? translate_user_role($wp_roles->role_names[$role_name]) : __('None', 'news-manager'))).'</th>';
 		}
@@ -638,7 +638,7 @@ class News_Manager_Settings
 				<tr'.(($i++ % 2 === 0) ? ' class="alternate"' : '').'>
 					<td>'.esc_html(__($role_display, 'news-manager')).'</td>';
 
-			foreach($built_in_roles as $role_name)
+			foreach($editable_roles as $role_name => $role_info)
 			{
 				$role = $wp_roles->get_role($role_name);
 				$html .= '

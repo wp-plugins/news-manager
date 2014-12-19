@@ -2,7 +2,7 @@
 /*
 Plugin Name: News Manager
 Description: Every CMS site needs a news section. News Manager allows you add, manage and display news, date archives, AJAX Calendar, Categories, Tags and more.
-Version: 1.0.6
+Version: 1.0.7
 Author: dFactory
 Author URI: http://www.dfactory.eu/
 Plugin URI: http://www.dfactory.eu/plugins/news-manager/
@@ -39,31 +39,31 @@ class News_Manager
 	private $defaults = array(
 		'general' => array(
 			'supports' => array(
-				'title' => TRUE,
-				'editor' => TRUE,
-				'author' => TRUE,
-				'thumbnail' => TRUE,
-				'excerpt' => TRUE,
-				'custom-fields' => FALSE,
-				'comments' => TRUE,
-				'trackbacks' => FALSE,
-				'revisions' => FALSE
+				'title' => true,
+				'editor' => true,
+				'author' => true,
+				'thumbnail' => true,
+				'excerpt' => true,
+				'custom-fields' => false,
+				'comments' => true,
+				'trackbacks' => false,
+				'revisions' => false
 			),
-			'use_categories' => TRUE,
-			'builtin_categories' => FALSE,
-			'use_tags' => TRUE,
-			'builtin_tags' => FALSE,
-			'deactivation_delete' => FALSE,
+			'use_categories' => true,
+			'builtin_categories' => false,
+			'use_tags' => true,
+			'builtin_tags' => false,
+			'deactivation_delete' => false,
 			'news_nav_menu' => array(
-				'show' => FALSE,
+				'show' => false,
 				'menu_name' => '',
 				'menu_id' => 0,
 				'item_id' => 0
 			),
 			'first_weekday' => 1,
-			'news_in_rss' => FALSE,
-			'display_news_in_tags_and_categories' => TRUE,
-			'rewrite_rules' => TRUE
+			'news_in_rss' => false,
+			'display_news_in_tags_and_categories' => true,
+			'rewrite_rules' => true
 		),
 		'capabilities' => array(
 			'publish_news',
@@ -81,10 +81,10 @@ class News_Manager
 			'news_slug' => 'news',
 			'news_categories_rewrite_slug' => 'category',
 			'news_tags_rewrite_slug' => 'tag',
-			'single_news_prefix' => FALSE,
+			'single_news_prefix' => false,
 			'single_news_prefix_type' => 'category'
 		),
-		'version' => '1.0.6'
+		'version' => '1.0.7'
 	);
 	private $transient_id = '';
 
@@ -197,15 +197,15 @@ class News_Manager
 			$current_blog_id = $wpdb->blogid;
 			$blogs_ids = $wpdb->get_col($wpdb->prepare('SELECT blog_id FROM '.$wpdb->blogs, ''));
 
-			if(($activated_blogs = get_site_option('news_manager_activated_blogs', FALSE, FALSE)) === FALSE)
+			if(($activated_blogs = get_site_option('news_manager_activated_blogs', false, false)) === false)
 				$activated_blogs = array();
 
 			foreach($blogs_ids as $blog_id)
 			{
 				switch_to_blog($blog_id);
-				$this->deactivate_single(TRUE);
+				$this->deactivate_single(true);
 
-				if(in_array((int)$blog_id, $activated_blogs, TRUE))
+				if(in_array((int)$blog_id, $activated_blogs, true))
 					unset($activated_blogs[array_search($blog_id, $activated_blogs)]);
 			}
 
@@ -220,7 +220,7 @@ class News_Manager
 	/**
 	 * Deactivation
 	*/
-	public function deactivate_single($multi = FALSE)
+	public function deactivate_single($multi = false)
 	{
 		global $wp_roles;
 
@@ -235,7 +235,7 @@ class News_Manager
 			}
 		}
 
-		if($multi === TRUE)
+		if($multi === true)
 		{
 			$options = get_option('news_manager_general');
 			$check = $options['deactivation_delete'];
@@ -243,7 +243,7 @@ class News_Manager
 		else
 			$check = $this->options['general']['deactivation_delete'];
 
-		if($check === TRUE)
+		if($check === true)
 		{
 			$settings = new News_Manager_Settings();
 			$settings->update_menu();
@@ -264,7 +264,7 @@ class News_Manager
 	*/
 	public function myfeed_request($feeds)
 	{
-		if(isset($feeds['feed']) && !isset($feeds['post_type']) && $this->options['general']['news_in_rss'] === TRUE)
+		if(isset($feeds['feed']) && !isset($feeds['post_type']) && $this->options['general']['news_in_rss'] === true)
 			$feeds['post_type'] = array('post', 'news');
 
 		return $feeds;
@@ -281,11 +281,11 @@ class News_Manager
 		if(is_wp_error($post) || $post->post_type !== 'news' || empty($post->post_name))
 			return $post_link;
 
-		if($this->options['permalinks']['single_news_prefix'] === TRUE)
+		if($this->options['permalinks']['single_news_prefix'] === true)
 		{
-			if($this->options['general']['use_tags'] === TRUE && $this->options['general']['builtin_tags'] === FALSE && $this->options['permalinks']['single_news_prefix_type'] === 'tag')
+			if($this->options['general']['use_tags'] === true && $this->options['general']['builtin_tags'] === false && $this->options['permalinks']['single_news_prefix_type'] === 'tag')
 				$category = 'news-tag';
-			elseif($this->options['general']['use_categories'] === TRUE && $this->options['general']['builtin_categories'] === FALSE && $this->options['permalinks']['single_news_prefix_type'] === 'category')
+			elseif($this->options['general']['use_categories'] === true && $this->options['general']['builtin_categories'] === false && $this->options['permalinks']['single_news_prefix_type'] === 'category')
 				$category = 'news-category';
 			else
 				return $post_link;
@@ -316,7 +316,7 @@ class News_Manager
 
 		foreach($this->options['general']['supports'] as $support => $bool)
 		{
-			if($bool === TRUE)
+			if($bool === true)
 				$supports[] = $support;
 		}
 
@@ -374,7 +374,7 @@ class News_Manager
 	*/
 	public function load_textdomain()
 	{
-		load_plugin_textdomain('news-manager', FALSE, NEWS_MANAGER_REL_PATH.'languages/');
+		load_plugin_textdomain('news-manager', false, NEWS_MANAGER_REL_PATH.'languages/');
 	}
 
 
@@ -388,7 +388,7 @@ class News_Manager
 		$screen = get_current_screen();
 		$message_arr = get_transient($this->transient_id);
 
-		if($screen->post_type === 'news' && $message_arr !== FALSE)
+		if($screen->post_type === 'news' && $message_arr !== false)
 		{
 			if(($pagenow === 'post.php' && $screen->id === 'news') || $screen->id === 'news_page_news-settings')
 			{
@@ -411,7 +411,7 @@ class News_Manager
 	public function register_taxonomies()
 	{
 		
-		if($this->options['general']['use_categories'] === TRUE && $this->options['general']['builtin_categories'] === FALSE)
+		if($this->options['general']['use_categories'] === true && $this->options['general']['builtin_categories'] === false)
 		{
 			$labels_news_categories = array(
 				'name' => _x('News Categories', 'taxonomy general name', 'news-manager'),
@@ -425,26 +425,26 @@ class News_Manager
 				'update_item' => __('Update News Category', 'news-manager'),
 				'add_new_item' => __('Add New News Category', 'news-manager'),
 				'new_item_name' => __('New News Category Name', 'news-manager'),
-				'menu_name' => __('News Categories', 'news-manager'),
+				'menu_name' => __('Categories', 'news-manager'),
 			);
 
 			$slug = $this->options['permalinks']['news_slug'].'/'.$this->options['permalinks']['news_categories_rewrite_slug'];
 
-			if($this->options['permalinks']['single_news_prefix'] === TRUE && $this->options['permalinks']['single_news_prefix_type'] === 'category')
+			if($this->options['permalinks']['single_news_prefix'] === true && $this->options['permalinks']['single_news_prefix_type'] === 'category')
 				$slug = $this->options['permalinks']['news_slug'];
 
 			$args_news_categories = array(
-				'public' => TRUE,
-				'hierarchical' => TRUE,
+				'public' => true,
+				'hierarchical' => true,
 				'labels' => $labels_news_categories,
-				'show_ui' => TRUE,
-				'show_admin_column' => TRUE,
+				'show_ui' => true,
+				'show_admin_column' => true,
 				'update_count_callback' => '_update_post_term_count',
-				'query_var' => TRUE,
+				'query_var' => true,
 				'rewrite' => array(
 					'slug' => $slug,
-					'with_front' => FALSE,
-					'hierarchical' => FALSE
+					'with_front' => false,
+					'hierarchical' => false
 				),
 				'capabilities' => array(
 					'manage_terms' => 'manage_news_categories',
@@ -457,7 +457,7 @@ class News_Manager
 			register_taxonomy('news-category', 'news', apply_filters('nm_register_news_categories', $args_news_categories));
 		}
 		
-		if($this->options['general']['use_tags'] === TRUE && $this->options['general']['builtin_tags'] === FALSE)
+		if($this->options['general']['use_tags'] === true && $this->options['general']['builtin_tags'] === false)
 		{
 			$labels_news_tags = array(
 				'name' => _x('News Tags', 'taxonomy general name', 'news-manager'),
@@ -474,26 +474,26 @@ class News_Manager
 				'separate_items_with_commas' => __('Separate news tags with commas', 'news-manager'),
 				'add_or_remove_items' => __('Add or remove news tags', 'news-manager'),
 				'choose_from_most_used' => __('Choose from the most used news tags', 'news-manager'),
-				'menu_name' => __('News Tags', 'news-manager'),
+				'menu_name' => __('Tags', 'news-manager'),
 			);
 
 			$slug = $this->options['permalinks']['news_slug'].'/'.$this->options['permalinks']['news_tags_rewrite_slug'];
 
-			if($this->options['permalinks']['single_news_prefix'] === TRUE && $this->options['permalinks']['single_news_prefix_type'] === 'tag')
+			if($this->options['permalinks']['single_news_prefix'] === true && $this->options['permalinks']['single_news_prefix_type'] === 'tag')
 				$slug = $this->options['permalinks']['news_slug'];
 
 			$args_news_tags = array(
-				'public' => TRUE,
-				'hierarchical' => FALSE,
+				'public' => true,
+				'hierarchical' => false,
 				'labels' => $labels_news_tags,
-				'show_ui' => TRUE,
-				'show_admin_column' => TRUE,
+				'show_ui' => true,
+				'show_admin_column' => true,
 				'update_count_callback' => '_update_post_term_count',
-				'query_var' => TRUE,
+				'query_var' => true,
 				'rewrite' => array(
 					'slug' => $slug,
-					'with_front' => FALSE,
-					'hierarchical' => FALSE
+					'with_front' => false,
+					'hierarchical' => false
 				),
 				'capabilities' => array(
 					'manage_terms' => 'manage_news_tags',
@@ -533,17 +533,17 @@ class News_Manager
 
 		$taxonomies = array();
 
-		if($this->options['general']['use_tags'] === TRUE)
+		if($this->options['general']['use_tags'] === true)
 		{
-			if($this->options['general']['builtin_tags'] === FALSE)
+			if($this->options['general']['builtin_tags'] === false)
 				$taxonomies[] = 'news-tag';
 			else
 				$taxonomies[] = 'post_tag';
 		}
 
-		if($this->options['general']['use_categories'] === TRUE)
+		if($this->options['general']['use_categories'] === true)
 		{
-			if($this->options['general']['builtin_categories'] === FALSE)
+			if($this->options['general']['builtin_categories'] === false)
 				$taxonomies[] = 'news-category';
 			else
 				$taxonomies[] = 'category';
@@ -551,11 +551,11 @@ class News_Manager
 
 		$prefix = '';
 
-		if($this->options['permalinks']['single_news_prefix'] === TRUE)
+		if($this->options['permalinks']['single_news_prefix'] === true)
 		{
-			if($this->options['general']['use_tags'] === TRUE && $this->options['general']['builtin_tags'] === FALSE && $this->options['permalinks']['single_news_prefix_type'] === 'tag')
+			if($this->options['general']['use_tags'] === true && $this->options['general']['builtin_tags'] === false && $this->options['permalinks']['single_news_prefix_type'] === 'tag')
 				$prefix = '/%news-tag%';
-			elseif($this->options['general']['use_categories'] === TRUE && $this->options['general']['builtin_categories'] === FALSE && $this->options['permalinks']['single_news_prefix_type'] === 'category')
+			elseif($this->options['general']['use_categories'] === true && $this->options['general']['builtin_categories'] === false && $this->options['permalinks']['single_news_prefix_type'] === 'category')
 				$prefix = '/%news-category%';
 		}
 		
@@ -565,19 +565,19 @@ class News_Manager
 		$menu_icon = NEWS_MANAGER_URL.'/images/icon-news-16.png';
 		if ($wp_version >= 3.8)
 		{
-			$menu_icon = 'dashicons-format-aside';
+			$menu_icon = 'dashicons-media-text';
 		}
 
 		$args_news = array(
 			'labels' => $labels_news,
 			'description' => '',
-			'public' => TRUE,
-			'exclude_from_search' => FALSE,
-			'publicly_queryable' => TRUE,
-			'show_ui' => TRUE,
-			'show_in_menu' => TRUE,
-			'show_in_admin_bar' => TRUE,
-			'show_in_nav_menus' => TRUE,
+			'public' => true,
+			'exclude_from_search' => false,
+			'publicly_queryable' => true,
+			'show_ui' => true,
+			'show_in_menu' => true,
+			'show_in_admin_bar' => true,
+			'show_in_nav_menus' => true,
 			'menu_position' => 5,
 			'menu_icon' => $menu_icon,
 			'capability_type' => 'news',
@@ -594,18 +594,18 @@ class News_Manager
 				'delete_post' => 'delete_single_news',
 				'read_post' => 'read_single_news',
 			),
-			'map_meta_cap' => FALSE,
-			'hierarchical' => FALSE,
+			'map_meta_cap' => false,
+			'hierarchical' => false,
 			'supports' => $this->get_supports($this->options['general']['supports']),
 			'rewrite' => array(
 				'slug' => $this->options['permalinks']['news_slug'].$prefix,
-				'with_front' => FALSE,
-				'feed'=> TRUE,
-				'pages'=> TRUE
+				'with_front' => false,
+				'feed'=> true,
+				'pages'=> true
 			),
 			'has_archive' => $this->options['permalinks']['news_slug'],
-			'query_var' => TRUE,
-			'can_export' => TRUE,
+			'query_var' => true,
+			'can_export' => true,
 			'taxonomies' => $taxonomies,
 		);
 
@@ -627,7 +627,7 @@ class News_Manager
 			3 => __('Custom field deleted.', 'news-manager'),
 			4 => __('News updated.', 'news-manager'),
 			//translators: %s: date and time of the revision
-			5 => isset($_GET['revision']) ? sprintf(__('News restored to revision from %s', 'news-manager'), wp_post_revision_title((int)$_GET['revision'], FALSE)) : FALSE,
+			5 => isset($_GET['revision']) ? sprintf(__('News restored to revision from %s', 'news-manager'), wp_post_revision_title((int)$_GET['revision'], false)) : false,
 			6 => sprintf(__('News published. <a href="%s">View news</a>', 'news-manager'), esc_url(get_permalink($post_ID))),
 			7 => __('News saved.', 'news-manager'),
 			8 => sprintf(__('News submitted. <a target="_blank" href="%s">Preview news</a>', 'news-manager'), esc_url( add_query_arg('preview', 'true', get_permalink($post_ID)))),
