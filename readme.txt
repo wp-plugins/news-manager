@@ -4,7 +4,7 @@ Donate link: http://www.dfactory.eu/
 Tags: news, news categories, news management, news management, news manager, news calendar, news archive, archive, archives, CMS, plugin, AJAX, widget, widgets, calendar
 Requires at least: 3.5
 Tested up to: 4.1
-Stable tag: 1.0.7
+Stable tag: 1.0.8
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
@@ -34,6 +34,7 @@ For more information, check out plugin page at [dFactory](http://www.dfactory.eu
 
 = Translations: =
 
+* Hebrew - by [Ahrale Shrem](http://atar4u.com/)
 * Polish - by Bartosz Arendt
 * Spanish - by [Maria Ramos](http://www.webhostinghub.com)
 * Swedish - by [Daniel Storgards](http://www.danielstorgards.com)
@@ -55,6 +56,9 @@ No questions yet.
 3. screenshot-3.png
 
 == Changelog ==
+
+= 1.0.8 =
+* New: Hebrew translation by [Ahrale Shrem](http://atar4u.com/)
 
 = 1.0.7 =
 * Tweak: Admin UI improvements
@@ -86,5 +90,5 @@ Initial release
 
 == Upgrade Notice ==
 
-= 1.1.0 =
-* Tweak: Admin UI improvements
+= 1.0.8 =
+* New: Hebrew translation by [Ahrale Shrem](http://atar4u.com/)
